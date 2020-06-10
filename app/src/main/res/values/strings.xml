@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PopularArtists</string>
+
+    <!--MainActivity-->
+    <string name="label_popular_artists">Popular Artists</string>
+
+    <!--PopularArtistsFragment-->
+    <string name="popular_artists_title">@string/label_popular_artists</string>
+
+</resources>
