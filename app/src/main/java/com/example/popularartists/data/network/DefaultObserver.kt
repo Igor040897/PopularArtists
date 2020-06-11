@@ -1,38 +1,15 @@
 package com.example.popularartists.data.network
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 
-//todo refactoring
 class DefaultObserver<E : Any?, T : ResultObject<E>> : Observer<T> {
-    protected val mutableIsProcessing = MutableLiveData<Boolean>()
-
-    val isProcessing: LiveData<Boolean?> = mutableIsProcessing
-
-    private var onError: (errorResult: ResultObject.ErrorResult) -> Unit = {
-        handleProcessing(false)
-    }
-    private var onSuccess: (successResult: ResultObject.SuccessResult<E>) -> Unit = {
-        handleProcessing(false)
-    }
-    private var onProcessing: (processingResult: ResultObject.Processing) -> Unit = {
-        handleProcessing(true)
-    }
-
-    private var shouldHandleProcessing: Boolean = true
-
-    private fun handleProcessing(isProcessing: Boolean) {
-        if (shouldHandleProcessing) {
-                mutableIsProcessing.postValue(isProcessing)
-        }
-    }
+    private var onError: (errorResult: ResultObject.ErrorResult) -> Unit = {}
+    private var onSuccess: (successResult: ResultObject.SuccessResult<E>) -> Unit = {}
 
     @Suppress("UNCHECKED_CAST")
     override fun onChanged(t: T) {
         when (t) {
             is ResultObject.SuccessResult<*> -> onSuccess(t as ResultObject.SuccessResult<E>)
-            is ResultObject.Processing -> onProcessing(t)
             is ResultObject.ErrorResult -> onError(t)
         }
     }
@@ -59,22 +36,6 @@ class DefaultObserver<E : Any?, T : ResultObject<E>> : Observer<T> {
     ): DefaultObserver<E, T> {
         onSuccess = if (withDefault) {
             val default = onSuccess
-            {
-                default(it)
-                handler(it)
-            }
-        } else {
-            handler
-        }
-        return this
-    }
-
-    fun handleProcessing(
-        withDefault: Boolean = true,
-        handler: (processingResult: ResultObject.Processing) -> Unit
-    ): DefaultObserver<E, T> {
-        onProcessing = if (withDefault) {
-            val default = onProcessing
             {
                 default(it)
                 handler(it)

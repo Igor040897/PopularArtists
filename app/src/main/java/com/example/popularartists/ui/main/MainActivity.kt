@@ -53,11 +53,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             findNavController(R.id.nav_host_fragment),
             null
         )
-        if (BuildConfig.FLAVOR == "dev") {
-            binding.networkModeSwitch.visibility = View.VISIBLE
-        }
 
-        setupSwitcherListenerDataMode()
+        if (BuildConfig.FLAVOR == "dev") {
+            viewModel.changeDataMode(connectivityStatus.isConnected())
+            binding.networkModeSwitch.visibility = View.VISIBLE
+            setupSwitcherListenerDataMode()
+        }
     }
 
     private fun connectivityNetworkCallback() {

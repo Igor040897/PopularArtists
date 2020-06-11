@@ -1,5 +1,6 @@
 package com.example.popularartists.ui.popularArtists.adapter
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popularartists.R

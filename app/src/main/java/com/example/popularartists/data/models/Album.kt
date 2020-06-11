@@ -28,6 +28,16 @@ open class Album(
     constructor() : this("", -1, "", "")
 
     class TopAlbumsArtistJsonDeserializer : JsonDeserializer<List<Album>> {
+        companion object{
+            private const val TOP_ALBUMS = "topalbums"
+            private const val ALBUM = "album"
+            private const val NAME = "name"
+            private const val PLAY_COUNT = "playcount"
+            private const val IMAGE = "image"
+            private const val SIZE = "size"
+            private const val LARGE = "large"
+            private const val TEXT = "#text"
+        }
         override fun deserialize(
             json: JsonElement?,
             typeOfT: Type?,
@@ -35,17 +45,16 @@ open class Album(
         ): List<Album> {
             val albums = arrayListOf<Album>()
             json?.also {
-                //todo move to const
-                val topalbumsJsonObject = it.asJsonObject.get("topalbums").asJsonObject
-                val jsonArray = topalbumsJsonObject.get("album").asJsonArray
+                val topalbumsJsonObject = it.asJsonObject.get(TOP_ALBUMS).asJsonObject
+                val jsonArray = topalbumsJsonObject.get(ALBUM).asJsonArray
                 jsonArray.forEach {
                     val albumJsonObject = it.asJsonObject
-                    val name = albumJsonObject.get("name").asString
-                    val playcount = albumJsonObject.get("playcount").asLong
+                    val name = albumJsonObject.get(NAME).asString
+                    val playcount = albumJsonObject.get(PLAY_COUNT).asLong
                     var albumUrl = ""
-                    albumJsonObject.get("image").asJsonArray.forEach {
-                        if (it.asJsonObject.get("size").asString == "large") {
-                            albumUrl = it.asJsonObject.get("#text").asString
+                    albumJsonObject.get(IMAGE).asJsonArray.forEach {
+                        if (it.asJsonObject.get(SIZE).asString == LARGE) {
+                            albumUrl = it.asJsonObject.get(TEXT).asString
                         }
                     }
                     albums.add(Album(name, playcount, albumUrl))

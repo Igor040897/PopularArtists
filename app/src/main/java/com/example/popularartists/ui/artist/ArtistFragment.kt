@@ -4,10 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.example.popularartists.R
-import com.example.popularartists.data.models.Album
-import com.example.popularartists.data.network.DefaultObserver
-import com.example.popularartists.data.network.ResultObject
 import com.example.popularartists.databinding.FragmentArtistBinding
+import com.example.popularartists.observe
 import com.example.popularartists.ui.artist.adapter.AlbumsAdapter
 import com.example.popularartists.ui.artist.adapter.ItemAlbumActionListener
 import com.example.popularartists.ui.base.BaseFragment
@@ -18,7 +16,7 @@ import javax.inject.Inject
 class ArtistFragment : BaseFragment<FragmentArtistBinding>(), ItemAlbumActionListener {
 
     override val contentLayoutId = R.layout.fragment_artist
-    lateinit var nameArtist : String
+    lateinit var nameArtist: String
 
     @Inject
     lateinit var viewModel: ArtistViewModel
@@ -51,21 +49,17 @@ class ArtistFragment : BaseFragment<FragmentArtistBinding>(), ItemAlbumActionLis
     }
 
     private fun setupTopAlbumsByArtist(artistName: String) {
-        viewModel.getTopAlbumsByArtist(artistName).observe(
-            this,
-            DefaultObserver<List<Album>, ResultObject<List<Album>>>()
-                .handleSuccess {
-                    it.getResult()?.apply {
-                        albumsAdapter.setItems(this)
-                    }
-                }
-                .handleError {
-
-                }
-        )
+        viewLifecycleOwner.observe(viewModel.getTopAlbumsByArtist(artistName), {
+            albumsAdapter.setItems(it)
+        })
     }
 
     override fun onClick(albumName: String) {
-       findNavController().navigate(ArtistFragmentDirections.actionArtistFragmentToAlbumFragment(albumName, nameArtist))
+        findNavController().navigate(
+            ArtistFragmentDirections.actionArtistFragmentToAlbumFragment(
+                albumName,
+                nameArtist
+            )
+        )
     }
 }

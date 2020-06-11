@@ -6,8 +6,6 @@ sealed class ResultObject<out T : Any?>(protected val resultData: T?) {
         fun getResult() = resultData
     }
 
-    class Processing : ResultObject<Unit>(null)
-
     open class ErrorResult(open val error: Throwable) : ResultObject<Nothing>(null)
 }
 

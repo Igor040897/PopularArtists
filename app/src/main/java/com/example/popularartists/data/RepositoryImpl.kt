@@ -61,9 +61,9 @@ class RepositoryImpl private constructor(
     private fun useNetworkData(): Boolean {
         val useDataMode = BuildConfig.FLAVOR == "dev"
 
-        return (if (useDataMode) {
+        return if (useDataMode) {
             sharedStorageManager.isNetworkDataMode()
-        } else connectivityState.isConnected())
+        } else connectivityState.isConnected()
     }
 
     //todo add to CallAdapter Retrofit2

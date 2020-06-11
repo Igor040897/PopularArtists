@@ -4,10 +4,8 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import com.example.popularartists.R
-import com.example.popularartists.data.models.AlbumWithTracks
-import com.example.popularartists.data.network.DefaultObserver
-import com.example.popularartists.data.network.ResultObject
 import com.example.popularartists.databinding.FragmentAlbumBinding
+import com.example.popularartists.observe
 import com.example.popularartists.setImage
 import com.example.popularartists.ui.album.adapter.TrackAdapter
 import com.example.popularartists.ui.base.BaseFragment
@@ -46,15 +44,9 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>() {
     }
 
     private fun setupAlbum(albumName: String, nameArtist: String) {
-        viewModel.getAlbum(nameArtist, albumName).observe(
-            this,
-            DefaultObserver<AlbumWithTracks, ResultObject<AlbumWithTracks>>()
-                .handleSuccess {
-                    it.getResult()?.apply {
-                        binding.albumImageView.setImage(Uri.parse(image))
-                        trackAdapter.setItems(tracks)
-                    }
-                }
-        )
+        viewLifecycleOwner.observe(viewModel.getAlbum(nameArtist, albumName), {
+            binding.albumImageView.setImage(Uri.parse(it.image))
+            trackAdapter.setItems(it.tracks)
+        })
     }
 }
