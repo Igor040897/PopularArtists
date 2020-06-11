@@ -11,7 +11,8 @@ sealed class ResultObject<out T : Any?>(protected val resultData: T?) {
     open class ErrorResult(open val error: Throwable) : ResultObject<Nothing>(null)
 }
 
-class ResponseError(val errorCode: Int, override val error: Throwable) : ResultObject.ErrorResult(error)
+class ResponseError(val errorCode: Int, override val error: Throwable) :
+    ResultObject.ErrorResult(error)
 
 class ConnectionError : ResultObject.ErrorResult(Throwable("Internet connection failed!"))
 
@@ -59,3 +60,24 @@ suspend fun <T : Any> ResultObject<T>.letToSuccess(
         else -> it
     }
 }
+
+suspend fun <T : Any> ResultObject<T>.letToConnectionError(
+    function: suspend () -> T
+): ResultObject<T> = this.let {
+    when (it) {
+        is ConnectionError -> {
+            ResultObject.SuccessResult(function())
+        }
+        else -> it
+    }
+}
+//
+//suspend fun <T : Any> ResultObject<T>.applyToConnectionError(
+//    function: suspend () -> Unit
+//): ResultObject<T> = this.apply {
+//    when (this) {
+//        is ConnectionError -> {
+//            function()
+//        }
+//    }
+//}

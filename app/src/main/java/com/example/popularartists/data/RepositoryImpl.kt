@@ -1,7 +1,6 @@
 package com.example.popularartists.data
 
 import com.example.popularartists.data.dataBase.DbStorageManager
-import com.example.popularartists.data.models.Location
 import com.example.popularartists.data.models.ServerError
 import com.example.popularartists.data.network.*
 import com.google.gson.FieldNamingPolicy
@@ -15,21 +14,43 @@ import java.io.IOException
 
 class RepositoryImpl(
     private val dbStorageManager: DbStorageManager,
-    private val api: PopularArtistService
+    private val api: PopularArtistService,
+    private val connectivityState: ConnectivityState
 ) : Repository {
 
-    override suspend fun topArtistByCountry(country: String) = api.topArtistByCountry(country)
+    override suspend fun getTopArtistByCountry(country: String) = api.getTopArtistByCountry(country)
         .runRequest()
         .applyToSuccess {
+            dbStorageManager.savePopularArtists(it)
+        }
+        .letToConnectionError {
+            dbStorageManager.getPopularArtists()
+        }
 
+    override suspend fun getTopAlbumsByArtist(artist: String) = api.getTopAlbumsByArtist(artist)
+        .runRequest()
+        .applyToSuccess {
+            dbStorageManager.saveTopAlbumsArtist(artist, it)
+        }
+        .letToConnectionError {
+            dbStorageManager.getTopAlbumsByArtist(artist)
+        }
+
+    override suspend fun getAlbum(artist: String, albumName: String) = api.getAlbum(artist, albumName)
+        .runRequest()
+        .applyToSuccess {
+            dbStorageManager.saveTracks(albumName, it.tracks)
+        }
+        .letToConnectionError {
+            dbStorageManager.getAlbum(albumName)
         }
 
     private suspend fun <T : Any?> Call<T>.runRequest(): ResultObject<T> =
         withContext(Dispatchers.IO) {
             try {
-//                if (!connectivityState.isConnected()) {
-//                    return@withContext ConnectionError()
-//                }
+                if (!connectivityState.isConnected()) {
+                    return@withContext ConnectionError()
+                }
                 val response = execute()
                 if (response.isSuccessful) {
                     ResultObject.SuccessResult(response.body())
@@ -68,10 +89,15 @@ class RepositoryImpl(
 
         fun getInstance(
             dbStorageManager: DbStorageManager,
-            api: PopularArtistService
+            api: PopularArtistService,
+            connectivityManager: ConnectivityState
         ): Repository {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: RepositoryImpl(dbStorageManager, api).also { INSTANCE = it }
+                INSTANCE ?: RepositoryImpl(
+                    dbStorageManager,
+                    api,
+                    connectivityManager
+                ).also { INSTANCE = it }
             }
         }
     }

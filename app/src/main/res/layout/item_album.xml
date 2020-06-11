@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.popularartists.ui.popularArtists.adapter.ItemArtistViewModel" />
+            type="com.example.popularartists.ui.artist.adapter.ItemAlbumViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,11 +16,11 @@
         android:layout_margin="@dimen/dimen_16">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/avatarImageView"
+            android:id="@+id/albumImageView"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:scaleType="fitXY"
-            app:imageUri="@{viewModel.avatarField}"
+            app:imageUri="@{viewModel.albumField}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -37,15 +37,15 @@
             android:text="@{viewModel.nameField}"
             android:textColor="@android:color/black"
             android:textSize="@dimen/dimen_24sp"
-            app:layout_constraintBottom_toTopOf="@+id/listenersTextView"
+            app:layout_constraintBottom_toTopOf="@+id/playcountTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/avatarImageView"
+            app:layout_constraintStart_toEndOf="@+id/albumImageView"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Test text" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/listenersTextView"
+            android:id="@+id/playcountTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_8"
@@ -54,8 +54,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            android:text="@{viewModel.listenersField}"
-            app:layout_constraintStart_toEndOf="@+id/avatarImageView"
+            android:text="@{viewModel.playcountField}"
+            app:layout_constraintStart_toEndOf="@+id/albumImageView"
             app:layout_constraintTop_toBottomOf="@+id/nameTextView"
             tools:text="Test text" />
 

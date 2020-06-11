@@ -1,4 +1,4 @@
-package com.example.popularartists.ui.artist
+package com.example.popularartists.ui.album
 
 import android.app.Application
 import androidx.lifecycle.liveData
@@ -7,16 +7,16 @@ import com.example.popularartists.data.network.letToSuccess
 import com.example.popularartists.ui.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 
-class ArtistViewModel (
+class AlbumViewModel (
     application: Application,
     private val repository: Repository
 ) : BaseViewModel(application) {
-    fun getTopAlbumsByArtist(artistName: String) = liveData(Dispatchers.IO) {
-        emit(repository.getTopAlbumsByArtist(artistName).letToSuccess {
-            //todo use TreeSet
-            it.sortedBy { artist ->
-                artist.name
-            }
-        })
+    fun getAlbum(artistName: String, albumName: String) = liveData(Dispatchers.IO) {
+        emit(repository.getAlbum(artistName, albumName)/*.letToSuccess {
+//            todo use TreeSet
+//            it.sortedBy { artist ->
+//                artist.name
+//            }
+//        }*/)
     }
 }

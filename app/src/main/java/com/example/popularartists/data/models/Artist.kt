@@ -9,16 +9,16 @@ import java.lang.reflect.Type
 
 @Entity
 data class Artist(
-    var name : String,
+    @PrimaryKey var name : String,
     var listeners: Long,
     var image: String
 ) {
-    @PrimaryKey(autoGenerate = true) var id: Long? = null
 
     class TopArtistsJsonDeserializer : JsonDeserializer<List<Artist>> {
         override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): List<Artist> {
             val topArtists = arrayListOf<Artist>()
             json?.also {
+                //todo move to const
                 val topartistsJsonObject = it.asJsonObject.get("topartists").asJsonObject
                 val jsonArray = topartistsJsonObject.get("artist").asJsonArray
                 jsonArray.forEach {

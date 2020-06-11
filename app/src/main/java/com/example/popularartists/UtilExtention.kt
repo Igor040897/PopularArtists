@@ -4,48 +4,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.annotation.MainThread
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 
 fun ViewGroup.inflateView(@LayoutRes layout: Int): View {
     return LayoutInflater.from(this.context).inflate(layout, this, false)
 }
 
-fun <T> AppCompatActivity.observe(liveData: LiveData<T>, callback: (T) -> Unit) {
-    liveData.observe(this, Observer {
-        callback.invoke(it)
-    })
-}
-
-
-fun <T> LifecycleOwner.observeCommand(data: LiveData<T>, action: (T) -> Unit) {
-    data.observe(this, Observer(action))
-}
-
-fun <T> LifecycleOwner.observe(data: LiveData<T>, action: (T) -> Unit) {
-    observeCommand(data, action)
-}
-
-fun <T> Fragment.observeOnView(data: LiveData<T>, action: (T) -> Unit) {
-    data.observe(viewLifecycleOwner, Observer(action))
-}
-
-@MainThread
-fun <T : Any> MutableLiveData<T>.call() {
-    value = null
-}
-
-//fun <T : ViewModel> Fragment.obtainViewModel(clazz: Class<T>): T {
-//    return activity?.run {
-//        obtainViewModel(ViewModelFactoryTest.getInstance(application), clazz)
-//    } ?: throw IllegalStateException("Activity is null when trying to obtain viewModel")
+//todo refactoring or remove
+//fun <T> AppCompatActivity.observe(liveData: LiveData<T>, callback: (T) -> Unit) {
+//    liveData.observe(this, Observer {
+//        callback.invoke(it)
+//    })
 //}
 //
-//fun <VM : ViewModel> Fragment.obtainViewModel(factory: ViewModelProvider.Factory?, cls: Class<VM>): VM {
-//    return ViewModelProviders.of(this, factory).get(cls)
+//fun <T> LifecycleOwner.observeCommand(data: LiveData<T>, action: (T) -> Unit) {
+//    data.observe(this, Observer(action))
+//}
+//
+//fun <T> LifecycleOwner.observe(data: LiveData<T>, action: (T) -> Unit) {
+//    observeCommand(data, action)
+//}
+//
+//fun <T> Fragment.observeOnView(data: LiveData<T>, action: (T) -> Unit) {
+//    data.observe(viewLifecycleOwner, Observer(action))
+//}
+//
+//@MainThread
+//fun <T : Any> MutableLiveData<T>.call() {
+//    value = null
 //}

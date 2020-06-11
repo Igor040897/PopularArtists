@@ -1,6 +1,8 @@
 package com.example.popularartists.di.module
 
 import com.example.popularartists.BuildConfig
+import com.example.popularartists.data.models.Album
+import com.example.popularartists.data.models.AlbumWithTracks
 import com.example.popularartists.data.models.Artist
 import com.example.popularartists.data.network.PopularArtistService
 import com.google.gson.Gson
@@ -43,10 +45,13 @@ class RetrofitBuilderModule {
 @Module
 class GsonModule {
     var artistsType: Type = object : TypeToken<List<@kotlin.jvm.JvmSuppressWildcards Artist>>() {}.type
+    var albumsType: Type = object : TypeToken<List<@kotlin.jvm.JvmSuppressWildcards Album>>() {}.type
     @Singleton
     @Provides
     fun providesGson() =  GsonBuilder()
         .registerTypeAdapter(artistsType, Artist.TopArtistsJsonDeserializer())
+        .registerTypeAdapter(albumsType, Album.TopAlbumsArtistJsonDeserializer())
+        .registerTypeAdapter(AlbumWithTracks::class.java, AlbumWithTracks.AlbumsWithTracksJsonDeserializer())
         .create()
 }
 

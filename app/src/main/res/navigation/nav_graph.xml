@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/popularArtistsFragment">
+
+    <fragment
+        android:id="@+id/popularArtistsFragment"
+        android:name="com.example.popularartists.ui.popularArtists.PopularArtistsFragment"
+        android:label="@string/popular_artists_title"
+        tools:layout="@layout/fragment_popular_artists">
+
+        <action
+            android:id="@+id/action_popularArtistsFragment_to_artistFragment"
+            app:destination="@id/artistFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/artistFragment"
+        android:name="com.example.popularartists.ui.artist.ArtistFragment"
+        tools:layout="@layout/fragment_artist">
+
+        <argument
+            android:name="nameArtist"
+            app:argType="string"/>
+
+        <action
+            android:id="@+id/action_artistFragment_to_albumFragment"
+            app:destination="@id/albumFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.example.popularartists.ui.album.AlbumFragment"
+        tools:layout="@layout/fragment_album">
+
+        <argument
+            android:name="nameAlbum"
+            app:argType="string"/>
+
+        <argument
+            android:name="nameArtist"
+            app:argType="string"/>
+
+    </fragment>
+
+</navigation>

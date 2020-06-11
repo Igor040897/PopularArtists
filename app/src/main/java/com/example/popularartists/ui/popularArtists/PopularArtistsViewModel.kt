@@ -13,7 +13,7 @@ class PopularArtistsViewModel(
 ) : BaseViewModel(application) {
 
     fun getTopArtistByCountry(country: String) = liveData(Dispatchers.IO) {
-        emit(repository.topArtistByCountry(country).letToSuccess {
+        emit(repository.getTopArtistByCountry(country).letToSuccess {
            //todo use TreeSet
             it.sortedBy { artist ->
                 artist.name

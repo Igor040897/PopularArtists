@@ -7,4 +7,9 @@
     <!--PopularArtistsFragment-->
     <string name="popular_artists_title">@string/label_popular_artists</string>
 
+    <!--ItemArtistViewModel-->
+    <string name="listeners">(%1$d listeners)</string>
+
+    <!--TrackAdapter-->
+    <string name="track_info">%1$d. %2$s (%3$d:%4$d)</string>
 </resources>

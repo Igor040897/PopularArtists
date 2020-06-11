@@ -6,6 +6,8 @@ import com.example.popularartists.di.module.ApiModule
 import com.example.popularartists.di.module.DataBaseModule
 import com.example.popularartists.di.module.RepositoryModule
 import com.example.popularartists.di.module.ViewModelFactoryModule
+import com.example.popularartists.di.module.ui.AlbumFragmentModule
+import com.example.popularartists.di.module.ui.ArtistFragmentModule
 import com.example.popularartists.di.module.ui.PopularArtistsFragmentModule
 import com.example.popularartists.di.module.ui.MainActivityModule
 import dagger.BindsInstance
@@ -22,7 +24,9 @@ import javax.inject.Singleton
         RepositoryModule::class,
         ViewModelFactoryModule::class,
         MainActivityModule::class,
-        PopularArtistsFragmentModule::class
+        ArtistFragmentModule::class,
+        PopularArtistsFragmentModule::class,
+        AlbumFragmentModule::class
     ]
 )
 interface ApplicationComponent {

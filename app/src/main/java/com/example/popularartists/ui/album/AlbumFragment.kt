@@ -1,20 +1,23 @@
-package com.example.popularartists.ui.artist
+package com.example.popularartists.ui.album
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.example.popularartists.R
-import com.example.popularartists.data.models.Album
+import com.example.popularartists.data.models.AlbumWithTracks
 import com.example.popularartists.data.network.DefaultObserver
 import com.example.popularartists.data.network.ResultObject
-import com.example.popularartists.databinding.FragmentArtistBinding
+import com.example.popularartists.databinding.FragmentAlbumBinding
+import com.example.popularartists.setImage
+import com.example.popularartists.ui.album.adapter.TrackAdapter
 import com.example.popularartists.ui.artist.adapter.ItemAlbumActionListener
-import com.example.popularartists.ui.artist.adapter.AlbumsAdapter
 import com.example.popularartists.ui.base.BaseFragment
+import com.example.popularartists.ui.popularArtists.PopularArtistsFragmentDirections
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class ArtistFragment : BaseFragment<FragmentArtistBinding>(), ItemAlbumActionListener {
+class AlbumFragment : BaseFragment<FragmentAlbumBinding>(), ItemAlbumActionListener {
 
 //    companion object {
 //        const val NAME_ARTIST = "NAME_ARTIST"
@@ -28,13 +31,12 @@ class ArtistFragment : BaseFragment<FragmentArtistBinding>(), ItemAlbumActionLis
 //        }
 //    }
 
-    override val contentLayoutId = R.layout.fragment_artist
+    override val contentLayoutId = R.layout.fragment_album
 //    override var title = R.string.popular_artists_title
-    lateinit var nameArtist : String
 
     @Inject
-    lateinit var viewModel: ArtistViewModel
-    lateinit var albumsAdapter: AlbumsAdapter
+    lateinit var viewModel: AlbumViewModel
+    lateinit var trackAdapter: TrackAdapter
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -43,42 +45,35 @@ class ArtistFragment : BaseFragment<FragmentArtistBinding>(), ItemAlbumActionLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        albumsAdapter = AlbumsAdapter()
-        albumsAdapter.itemAlbumActionListener = this
+        trackAdapter = TrackAdapter()
     }
 
-    override fun setupBinding(binding: FragmentArtistBinding) {
+    override fun setupBinding(binding: FragmentAlbumBinding) {
         super.setupBinding(binding)
-        binding.itemsRecyclerView.adapter = albumsAdapter
+        binding.itemsRecyclerView.adapter = trackAdapter
         arguments?.apply {
-            val fromBundle = ArtistFragmentArgs.fromBundle(this)
-            nameArtist = fromBundle.nameArtist
-            setupTopAlbumsByArtist(nameArtist)
+            val fromBundle = AlbumFragmentArgs.fromBundle(this)
+            setupAlbum(fromBundle.nameAlbum, fromBundle.nameArtist)
 //           getString(NAME_ARTIST)?.also {
 //               setupTopAlbumsByArtist(it)
 //           }
         }
     }
 
-    private fun setupTopAlbumsByArtist(artistName: String) {
-        viewModel.getTopAlbumsByArtist(artistName).observe(
+    private fun setupAlbum(albumName: String, nameArtist: String) {
+        viewModel.getAlbum(nameArtist, albumName).observe(
             this,
-            DefaultObserver<List<Album>, ResultObject<List<Album>>>()
+            DefaultObserver<AlbumWithTracks, ResultObject<AlbumWithTracks>>()
                 .handleSuccess {
                     it.getResult()?.apply {
-                        albumsAdapter.setItems(this)
+                        binding.albumImageView.setImage(Uri.parse(image))
+                        trackAdapter.setItems(tracks)
                     }
-                }
-                .handleConnection {
-
-                }
-                .handleError {
-
                 }
         )
     }
 
-    override fun onClick(albumName: String) {
-       findNavController().navigate(ArtistFragmentDirections.actionArtistFragmentToAlbumFragment(albumName, nameArtist))
+    override fun onClick(name: String) {
+       findNavController().navigate(PopularArtistsFragmentDirections.actionPopularArtistsFragmentToArtistFragment(name))
     }
 }

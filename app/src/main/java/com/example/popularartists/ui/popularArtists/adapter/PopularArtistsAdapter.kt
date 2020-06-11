@@ -1,4 +1,4 @@
-package com.example.popularartists.ui.popularArtists
+package com.example.popularartists.ui.popularArtists.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +9,7 @@ import com.example.popularartists.inflateView
 
 class PopularArtistsAdapter : RecyclerView.Adapter<PopularArtistsAdapter.ArtistVH>() {
 
+    var itemArtistActionListener: ItemArtistActionListener? = null
     val items: ArrayList<Artist> = ArrayList()
 
     fun setItems(artists: List<Artist>) {
@@ -19,7 +20,8 @@ class PopularArtistsAdapter : RecyclerView.Adapter<PopularArtistsAdapter.ArtistV
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistVH {
         val binding = ItemArtistBinding.bind(parent.inflateView(R.layout.item_artist))
-        binding.viewModel = ItemArtistViewModel()
+        binding.viewModel =
+            ItemArtistViewModel()
         return ArtistVH(binding)
     }
 
@@ -33,8 +35,14 @@ class PopularArtistsAdapter : RecyclerView.Adapter<PopularArtistsAdapter.ArtistV
     inner class ArtistVH(private val binding: ItemArtistBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        init {
+            binding.root.setOnClickListener {
+                itemArtistActionListener?.onClick(items[adapterPosition].name)
+            }
+        }
+
         fun bind(item: Artist) {
-            binding.viewModel?.start(item)
+            binding.viewModel?.start(item, binding.root.context)
         }
     }
 }
