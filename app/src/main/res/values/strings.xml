@@ -3,6 +3,8 @@
 
     <!--MainActivity-->
     <string name="label_popular_artists">Popular Artists</string>
+    <string name="online_mode">network</string>
+    <string name="offline_mode">local storage</string>
 
     <!--PopularArtistsFragment-->
     <string name="popular_artists_title">@string/label_popular_artists</string>

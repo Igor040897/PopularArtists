@@ -19,12 +19,7 @@ import javax.inject.Inject
 class PopularArtistsFragment : BaseFragment<FragmentPopularArtistsBinding>(),
     ItemArtistActionListener {
 
-    companion object {
-        fun newInstance() = PopularArtistsFragment()
-    }
-
     override val contentLayoutId = R.layout.fragment_popular_artists
-    override var title = R.string.popular_artists_title
 
     lateinit var artistsAdapter: PopularArtistsAdapter
 
@@ -49,7 +44,7 @@ class PopularArtistsFragment : BaseFragment<FragmentPopularArtistsBinding>(),
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
-                view: View,
+                view: View?,
                 position: Int,
                 id: Long
             ) {
@@ -63,6 +58,7 @@ class PopularArtistsFragment : BaseFragment<FragmentPopularArtistsBinding>(),
         }
     }
 
+    // todo load list after start app without network and connect it
     private fun setupTopArtistByCountry(country: String) {
         viewModel.getTopArtistByCountry(country).observe(
             this@PopularArtistsFragment,
@@ -82,10 +78,6 @@ class PopularArtistsFragment : BaseFragment<FragmentPopularArtistsBinding>(),
     }
 
     override fun onClick(name: String) {
-//        parentFragment?.apply {
-//            NavHostFragment.findNavController(this).navigate(PopularArtistsFragmentDirections.actionPopularArtistsFragmentToArtistFragment(name))
-//        }
         findNavController().navigate(PopularArtistsFragmentDirections.actionPopularArtistsFragmentToArtistFragment(name))
-//        navigate()
     }
 }

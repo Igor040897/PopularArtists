@@ -2,19 +2,26 @@ package com.example.popularartists.data.network
 
 import android.net.ConnectivityManager
 
-class ConnectivityDispatcher private constructor(private val connectivityManager: ConnectivityManager) : ConnectivityState {
+class ConnectivityDispatcher private constructor(private val connectivityManager: ConnectivityManager) :
+    ConnectivityState {
 
     companion object {
 
-        @Volatile private var INSTANCE: ConnectivityDispatcher? = null
+        @Volatile
+        private var INSTANCE: ConnectivityDispatcher? = null
 
         fun getInstance(connectivityManager: ConnectivityManager): ConnectivityDispatcher =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: init(connectivityManager).also { INSTANCE = it }
             }
 
-        private fun init(connectivityManager: ConnectivityManager) = ConnectivityDispatcher(connectivityManager)
+        private fun init(connectivityManager: ConnectivityManager) =
+            ConnectivityDispatcher(connectivityManager)
 
+    }
+
+    fun test() {
+//        connectivityManager.registerDefaultNetworkCallback(ConnectivityCallback())
     }
 
     override fun isConnected(): Boolean {

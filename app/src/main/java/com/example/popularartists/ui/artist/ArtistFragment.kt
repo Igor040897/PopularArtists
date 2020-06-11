@@ -12,24 +12,12 @@ import com.example.popularartists.ui.artist.adapter.ItemAlbumActionListener
 import com.example.popularartists.ui.artist.adapter.AlbumsAdapter
 import com.example.popularartists.ui.base.BaseFragment
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class ArtistFragment : BaseFragment<FragmentArtistBinding>(), ItemAlbumActionListener {
 
-//    companion object {
-//        const val NAME_ARTIST = "NAME_ARTIST"
-//        const val ARTIST_FRAGMENT_TAG = "ArtistFragment"
-//        fun newInstance(name: String): ArtistFragment {
-//            val fragment = ArtistFragment()
-//            val bundle = Bundle()
-//            bundle.putString(NAME_ARTIST, name)
-//            fragment.arguments = bundle
-//            return fragment
-//        }
-//    }
-
     override val contentLayoutId = R.layout.fragment_artist
-//    override var title = R.string.popular_artists_title
     lateinit var nameArtist : String
 
     @Inject
@@ -43,6 +31,10 @@ class ArtistFragment : BaseFragment<FragmentArtistBinding>(), ItemAlbumActionLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.apply {
+            activity?.toolbar?.title = ArtistFragmentArgs.fromBundle(this).nameArtist
+        }
+
         albumsAdapter = AlbumsAdapter()
         albumsAdapter.itemAlbumActionListener = this
     }
@@ -53,10 +45,8 @@ class ArtistFragment : BaseFragment<FragmentArtistBinding>(), ItemAlbumActionLis
         arguments?.apply {
             val fromBundle = ArtistFragmentArgs.fromBundle(this)
             nameArtist = fromBundle.nameArtist
+            activity?.toolbar?.title = fromBundle.nameArtist
             setupTopAlbumsByArtist(nameArtist)
-//           getString(NAME_ARTIST)?.also {
-//               setupTopAlbumsByArtist(it)
-//           }
         }
     }
 

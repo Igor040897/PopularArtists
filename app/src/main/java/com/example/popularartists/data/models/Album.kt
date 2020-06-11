@@ -42,8 +42,12 @@ open class Album(
                     val albumJsonObject = it.asJsonObject
                     val name = albumJsonObject.get("name").asString
                     val playcount = albumJsonObject.get("playcount").asLong
-                    val albumUrl =
-                        albumJsonObject.get("image").asJsonArray.first().asJsonObject.get("#text").asString
+                    var albumUrl = ""
+                    albumJsonObject.get("image").asJsonArray.forEach {
+                        if (it.asJsonObject.get("size").asString == "large") {
+                            albumUrl = it.asJsonObject.get("#text").asString
+                        }
+                    }
                     albums.add(Album(name, playcount, albumUrl))
                 }
             }

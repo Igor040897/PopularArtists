@@ -25,8 +25,12 @@ data class Artist(
                     val artistJsonObject = it.asJsonObject
                     val name = artistJsonObject.get("name").asString
                     val listeners = artistJsonObject.get("listeners").asLong
-                    val avatarUrl =
-                        artistJsonObject.get("image").asJsonArray.first().asJsonObject.get("#text").asString
+                    var avatarUrl = ""
+                    artistJsonObject.get("image").asJsonArray.forEach {
+                        if (it.asJsonObject.get("size").asString == "large") {
+                            avatarUrl = it.asJsonObject.get("#text").asString
+                        }
+                    }
                     topArtists.add(Artist(name, listeners, avatarUrl))
                 }
             }

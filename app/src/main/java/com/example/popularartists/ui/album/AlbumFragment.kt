@@ -15,24 +15,12 @@ import com.example.popularartists.ui.artist.adapter.ItemAlbumActionListener
 import com.example.popularartists.ui.base.BaseFragment
 import com.example.popularartists.ui.popularArtists.PopularArtistsFragmentDirections
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class AlbumFragment : BaseFragment<FragmentAlbumBinding>(), ItemAlbumActionListener {
-
-//    companion object {
-//        const val NAME_ARTIST = "NAME_ARTIST"
-//        const val ARTIST_FRAGMENT_TAG = "ArtistFragment"
-//        fun newInstance(name: String): ArtistFragment {
-//            val fragment = ArtistFragment()
-//            val bundle = Bundle()
-//            bundle.putString(NAME_ARTIST, name)
-//            fragment.arguments = bundle
-//            return fragment
-//        }
-//    }
+class AlbumFragment : BaseFragment<FragmentAlbumBinding>() {
 
     override val contentLayoutId = R.layout.fragment_album
-//    override var title = R.string.popular_artists_title
 
     @Inject
     lateinit var viewModel: AlbumViewModel
@@ -46,6 +34,9 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>(), ItemAlbumActionListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         trackAdapter = TrackAdapter()
+        arguments?.apply {
+            activity?.toolbar?.title = AlbumFragmentArgs.fromBundle(this).nameAlbum
+        }
     }
 
     override fun setupBinding(binding: FragmentAlbumBinding) {
@@ -54,9 +45,6 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>(), ItemAlbumActionListe
         arguments?.apply {
             val fromBundle = AlbumFragmentArgs.fromBundle(this)
             setupAlbum(fromBundle.nameAlbum, fromBundle.nameArtist)
-//           getString(NAME_ARTIST)?.also {
-//               setupTopAlbumsByArtist(it)
-//           }
         }
     }
 
@@ -71,9 +59,5 @@ class AlbumFragment : BaseFragment<FragmentAlbumBinding>(), ItemAlbumActionListe
                     }
                 }
         )
-    }
-
-    override fun onClick(name: String) {
-       findNavController().navigate(PopularArtistsFragmentDirections.actionPopularArtistsFragmentToArtistFragment(name))
     }
 }

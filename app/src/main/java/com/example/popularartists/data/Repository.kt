@@ -13,4 +13,6 @@ interface Repository {
 
     suspend fun getAlbum(artist: String, albumName: String): ResultObject<AlbumWithTracks>
 
+    fun changeDataMode(isNetwork: Boolean)
+
 }

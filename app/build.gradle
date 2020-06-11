@@ -11,7 +11,7 @@ android {
     defaultConfig {
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = ["room.incremental":"true"]
+                arguments = ["room.incremental": "true"]
             }
         }
         applicationId "com.example.popularartists"
@@ -35,17 +35,47 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
-
-            buildConfigField "String", "BASE_URL", "\"https://ws.audioscrobbler.com/2.0/\""
         }
-
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions 'default'
+    productFlavors {
+        dev {
+            dimension 'default'
+
+            buildConfigField "String", "BASE_URL", "\"https://ws.audioscrobbler.com/2.0/\""
+        }
+        prod {
+            dimension 'default'
 
             buildConfigField "String", "BASE_URL", "\"https://ws.audioscrobbler.com/2.0/\""
         }
     }
+    sourceSets {
+        prod {
+            res {
+                srcDirs 'src/prod/res', 'src/prod/res/', 'src/main/res', 'src/main/res/'
+            }
+        }
+        dev {
+            res {
+                srcDirs 'src/dev/res', 'src/dev/res/', 'src/main/res', 'src/main/res/'
+            }
+        }
+    }
+
+//    flavorDimensions 'dev', 'prod'
+//    productFlavors {
+//        dev {
+//            applicationIdSuffix ".debug"
+//        }
+//        prod {
+//
+//        }
+//    }
 }
 
 dependencies {

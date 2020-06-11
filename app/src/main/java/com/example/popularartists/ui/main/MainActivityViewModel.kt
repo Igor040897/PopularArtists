@@ -11,4 +11,8 @@ class MainActivityViewModel (
     fun start() {
 
     }
+
+    fun changeDataMode(isNetwork: Boolean) {
+        repository.changeDataMode(isNetwork)
+    }
 }

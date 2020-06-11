@@ -2,10 +2,7 @@ package com.example.popularartists.di.component
 
 import android.app.Application
 import com.example.popularartists.App
-import com.example.popularartists.di.module.ApiModule
-import com.example.popularartists.di.module.DataBaseModule
-import com.example.popularartists.di.module.RepositoryModule
-import com.example.popularartists.di.module.ViewModelFactoryModule
+import com.example.popularartists.di.module.*
 import com.example.popularartists.di.module.ui.AlbumFragmentModule
 import com.example.popularartists.di.module.ui.ArtistFragmentModule
 import com.example.popularartists.di.module.ui.PopularArtistsFragmentModule
@@ -21,6 +18,8 @@ import javax.inject.Singleton
         AndroidInjectionModule::class,
         ApiModule::class,
         DataBaseModule::class,
+        SharedPreferencesModule::class,
+        ConnectivityStateModule::class,
         RepositoryModule::class,
         ViewModelFactoryModule::class,
         MainActivityModule::class,
