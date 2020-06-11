@@ -68,9 +68,6 @@ class PopularArtistsFragment : BaseFragment<FragmentPopularArtistsBinding>(),
                         artistsAdapter.setItems(this)
                     }
                 }
-                .handleConnection {
-
-                }
                 .handleError {
 
                 }

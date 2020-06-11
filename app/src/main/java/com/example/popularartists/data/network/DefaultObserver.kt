@@ -19,9 +19,6 @@ class DefaultObserver<E : Any?, T : ResultObject<E>> : Observer<T> {
     private var onProcessing: (processingResult: ResultObject.Processing) -> Unit = {
         handleProcessing(true)
     }
-    private var onConnection: (connectionErrorResult: ConnectionError) -> Unit = {
-        handleProcessing(false)
-    }
 
     private var shouldHandleProcessing: Boolean = true
 
@@ -36,7 +33,6 @@ class DefaultObserver<E : Any?, T : ResultObject<E>> : Observer<T> {
         when (t) {
             is ResultObject.SuccessResult<*> -> onSuccess(t as ResultObject.SuccessResult<E>)
             is ResultObject.Processing -> onProcessing(t)
-            is ConnectionError -> onConnection(t)
             is ResultObject.ErrorResult -> onError(t)
         }
     }
@@ -86,27 +82,6 @@ class DefaultObserver<E : Any?, T : ResultObject<E>> : Observer<T> {
         } else {
             handler
         }
-        return this
-    }
-
-    fun handleConnection(
-        withDefault: Boolean = true,
-        handler: (connectionError: ConnectionError) -> Unit
-    ): DefaultObserver<E, T> {
-        onConnection = if (withDefault) {
-            val default = onConnection
-            {
-                default(it)
-                handler(it)
-            }
-        } else {
-            handler
-        }
-        return this
-    }
-
-    fun dontHandleProcessing(): DefaultObserver<E, T> {
-        shouldHandleProcessing = false
         return this
     }
 }

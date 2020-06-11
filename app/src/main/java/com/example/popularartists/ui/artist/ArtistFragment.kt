@@ -59,9 +59,6 @@ class ArtistFragment : BaseFragment<FragmentArtistBinding>(), ItemAlbumActionLis
                         albumsAdapter.setItems(this)
                     }
                 }
-                .handleConnection {
-
-                }
                 .handleError {
 
                 }
