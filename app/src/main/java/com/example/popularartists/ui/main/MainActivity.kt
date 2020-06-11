@@ -94,7 +94,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }, intentFilter)
     }
 
-    //todo optimize call Callback
     @RequiresApi(Build.VERSION_CODES.N)
     private fun defaultNetworkCallback() {
         connectivityManager.registerDefaultNetworkCallback(object :

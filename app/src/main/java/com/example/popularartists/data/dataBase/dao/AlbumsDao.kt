@@ -23,7 +23,6 @@ abstract class AlbumsDao {
         insertTracks(tracks)
     }
 
-    //todo return LiveData
     @Transaction
     open fun getAlbumWithTracks(albumName: String): AlbumWithTracks {
         val albums = getAlbums(albumName)
@@ -39,15 +38,12 @@ abstract class AlbumsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertTracks(tracks: List<Track>)
 
-    //todo return LiveData
     @Query("SELECT * FROM Album WHERE artistName = :artistName")
     abstract fun getTopAlbumsByArtist(artistName: String): List<Album>
 
-    //todo return LiveData
     @Query("SELECT * FROM Album WHERE name = :albumName")
     abstract fun getAlbums(albumName: String): Album
 
-    //todo return LiveData
     @Query("SELECT * FROM Track WHERE albumName = :albumName")
     abstract fun getTracks(albumName: String): List<Track>
 }

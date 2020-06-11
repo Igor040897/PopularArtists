@@ -13,7 +13,6 @@ class ArtistViewModel (
 ) : BaseViewModel(application) {
     fun getTopAlbumsByArtist(artistName: String) = liveData(Dispatchers.IO) {
         emit(repository.getTopAlbumsByArtist(artistName).letToSuccess {
-            //todo use TreeSet
             it.sortedBy { artist ->
                 artist.name
             }
