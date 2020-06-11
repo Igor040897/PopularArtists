@@ -1,6 +1,5 @@
 package com.example.popularartists.di.module
 
-//import com.client.marvel.data.Repository
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

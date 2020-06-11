@@ -8,9 +8,6 @@ class MainActivityViewModel (
     application: Application,
     private val repository: Repository
 ) : BaseViewModel(application) {
-    fun start() {
-
-    }
 
     fun changeDataMode(isNetwork: Boolean) {
         repository.changeDataMode(isNetwork)

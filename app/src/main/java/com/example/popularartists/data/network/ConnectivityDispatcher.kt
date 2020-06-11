@@ -17,11 +17,6 @@ class ConnectivityDispatcher private constructor(private val connectivityManager
 
         private fun init(connectivityManager: ConnectivityManager) =
             ConnectivityDispatcher(connectivityManager)
-
-    }
-
-    fun test() {
-//        connectivityManager.registerDefaultNetworkCallback(ConnectivityCallback())
     }
 
     override fun isConnected(): Boolean {

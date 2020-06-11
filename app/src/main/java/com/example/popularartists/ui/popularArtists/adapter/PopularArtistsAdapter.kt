@@ -37,7 +37,7 @@ class PopularArtistsAdapter : RecyclerView.Adapter<PopularArtistsAdapter.ArtistV
 
         init {
             binding.root.setOnClickListener {
-                itemArtistActionListener?.onClick(items[adapterPosition].name)
+                itemArtistActionListener?.onArtistClick(items[adapterPosition].name)
             }
         }
 

@@ -5,8 +5,8 @@ import com.example.popularartists.App
 import com.example.popularartists.di.module.*
 import com.example.popularartists.di.module.ui.AlbumFragmentModule
 import com.example.popularartists.di.module.ui.ArtistFragmentModule
-import com.example.popularartists.di.module.ui.PopularArtistsFragmentModule
 import com.example.popularartists.di.module.ui.MainActivityModule
+import com.example.popularartists.di.module.ui.PopularArtistsFragmentModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule

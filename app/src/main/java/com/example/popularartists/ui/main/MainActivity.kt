@@ -22,7 +22,6 @@ import com.example.popularartists.ui.base.BaseActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override val contentLayoutId = R.layout.activity_main

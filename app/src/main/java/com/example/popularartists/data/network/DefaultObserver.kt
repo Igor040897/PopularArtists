@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 
+//todo refactoring
 class DefaultObserver<E : Any?, T : ResultObject<E>> : Observer<T> {
     protected val mutableIsProcessing = MutableLiveData<Boolean>()
 

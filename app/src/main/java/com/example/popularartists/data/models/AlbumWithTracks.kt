@@ -1,6 +1,5 @@
 package com.example.popularartists.data.models
 
-import androidx.room.Entity
 import androidx.room.Ignore
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer

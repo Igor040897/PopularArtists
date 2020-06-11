@@ -3,7 +3,6 @@ package com.example.popularartists.ui.album
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.navigation.fragment.findNavController
 import com.example.popularartists.R
 import com.example.popularartists.data.models.AlbumWithTracks
 import com.example.popularartists.data.network.DefaultObserver
@@ -11,9 +10,7 @@ import com.example.popularartists.data.network.ResultObject
 import com.example.popularartists.databinding.FragmentAlbumBinding
 import com.example.popularartists.setImage
 import com.example.popularartists.ui.album.adapter.TrackAdapter
-import com.example.popularartists.ui.artist.adapter.ItemAlbumActionListener
 import com.example.popularartists.ui.base.BaseFragment
-import com.example.popularartists.ui.popularArtists.PopularArtistsFragmentDirections
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject

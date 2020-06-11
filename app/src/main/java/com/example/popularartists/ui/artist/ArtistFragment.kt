@@ -8,8 +8,8 @@ import com.example.popularartists.data.models.Album
 import com.example.popularartists.data.network.DefaultObserver
 import com.example.popularartists.data.network.ResultObject
 import com.example.popularartists.databinding.FragmentArtistBinding
-import com.example.popularartists.ui.artist.adapter.ItemAlbumActionListener
 import com.example.popularartists.ui.artist.adapter.AlbumsAdapter
+import com.example.popularartists.ui.artist.adapter.ItemAlbumActionListener
 import com.example.popularartists.ui.base.BaseFragment
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.activity_main.*

@@ -77,7 +77,7 @@ class PopularArtistsFragment : BaseFragment<FragmentPopularArtistsBinding>(),
         )
     }
 
-    override fun onClick(name: String) {
-        findNavController().navigate(PopularArtistsFragmentDirections.actionPopularArtistsFragmentToArtistFragment(name))
+    override fun onArtistClick(artistName: String) {
+        findNavController().navigate(PopularArtistsFragmentDirections.actionPopularArtistsFragmentToArtistFragment(artistName))
     }
 }

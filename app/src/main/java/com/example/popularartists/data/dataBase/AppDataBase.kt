@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 import com.example.popularartists.data.dataBase.dao.AlbumsDao
 import com.example.popularartists.data.dataBase.dao.ArtistsDao
 import com.example.popularartists.data.models.Album
-import com.example.popularartists.data.models.AlbumWithTracks
 import com.example.popularartists.data.models.Artist
 import com.example.popularartists.data.models.Track
 

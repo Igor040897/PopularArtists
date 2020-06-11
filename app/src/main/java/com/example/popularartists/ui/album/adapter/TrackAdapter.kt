@@ -3,7 +3,6 @@ package com.example.popularartists.ui.album.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.popularartists.R
-import com.example.popularartists.data.models.Album
 import com.example.popularartists.data.models.Track
 import com.example.popularartists.databinding.ItemTrackBinding
 import com.example.popularartists.inflateView

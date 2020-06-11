@@ -3,7 +3,6 @@ package com.example.popularartists.ui.album
 import android.app.Application
 import androidx.lifecycle.liveData
 import com.example.popularartists.data.Repository
-import com.example.popularartists.data.network.letToSuccess
 import com.example.popularartists.ui.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 
@@ -12,11 +11,6 @@ class AlbumViewModel (
     private val repository: Repository
 ) : BaseViewModel(application) {
     fun getAlbum(artistName: String, albumName: String) = liveData(Dispatchers.IO) {
-        emit(repository.getAlbum(artistName, albumName)/*.letToSuccess {
-//            todo use TreeSet
-//            it.sortedBy { artist ->
-//                artist.name
-//            }
-//        }*/)
+        emit(repository.getAlbum(artistName, albumName))
     }
 }
